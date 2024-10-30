@@ -1,0 +1,11 @@
+step-1 = setup your database online
+step-2 = give your database url in the .env file
+step-3 = give your databse name in the constants.js file in the src directory.
+step-4 = install mongoose (npm i mongoose)
+pro-tip = database se jbh b baat kro try-catch or asnyc-await hmesha use kro. kyoki database se baat krne mai time lgta hai
+step-5 = import mongoose in the index.js
+step - 6 = write a async function with try-catch
+step - 7 = import db_name from containts into the index.js
+// two approches for the database use
+1 - sara code index.js mai likh do and usse run krte hi hamara databse a logic code jo b usme likh hai vo b execute hojaye.
+2- ek alg folder mai db naam ke usme sara code likhu database ka or usse export karalu index.js mai jisse code clean lgta h..
