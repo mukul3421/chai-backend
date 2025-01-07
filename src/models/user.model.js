@@ -14,8 +14,8 @@ const userSchema = new mongoose.Schema(
         },
         email: {
             type: String,
-            required: true,
-            unique: true,
+            required: true, 
+            unique: true, 
             lowecase: true,
             trim: true, 
         },
@@ -55,7 +55,7 @@ const userSchema = new mongoose.Schema(
 userSchema.pre("save", async function(next){
     if(!this.isModified("password")) return next();
 
-    this.password = bycrypt.hash(this.password,10)
+    this.password = await bycrypt.hash(this.password,10)
     next()
 })
 
@@ -78,6 +78,7 @@ userSchema.method.generateAccessToken = function(){
         }
     )
 }
+
 userSchema.method.generateRefreshToken = function(){
     return jwt.sign(
         {
