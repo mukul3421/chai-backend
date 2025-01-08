@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt"; // Fixed typo in import
+import bcrypt from "bcrypt"; 
 
 const { Schema } = mongoose;
 
@@ -18,7 +18,7 @@ const userSchema = new Schema(
             type: String,
             required: true,
             unique: true,
-            lowercase: true, // Fixed typo here
+            lowercase: true, 
             trim: true,
         },
         fullName: {
@@ -56,13 +56,13 @@ const userSchema = new Schema(
 // Hash the password before saving the user
 userSchema.pre("save", async function (next) {
     if (!this.isModified("password")) return next();
-    this.password = await bcrypt.hash(this.password, 10); // Fixed typo
+    this.password = await bcrypt.hash(this.password, 10); 
     next();
 });
 
 // Instance method to compare passwords
 userSchema.methods.isPasswordCorrect = async function (password) {
-    return await bcrypt.compare(password, this.password); // Fixed typo
+    return await bcrypt.compare(password, this.password); 
 };
 
 // Instance method to generate access token
@@ -76,7 +76,7 @@ userSchema.methods.generateAccessToken = function () {
         },
         process.env.ACCESS_TOKEN_SECRET,
         {
-            expiresIn: process.env.ACCESS_TOKEN_EXPIRY, // Fixed typo
+            expiresIn: process.env.ACCESS_TOKEN_EXPIRY, 
         }
     );
 };
@@ -89,7 +89,7 @@ userSchema.methods.generateRefreshToken = function () {
         },
         process.env.REFRESH_TOKEN_SECRET,
         {
-            expiresIn: process.env.REFRESH_TOKEN_EXPIRY, // Fixed typo
+            expiresIn: process.env.REFRESH_TOKEN_EXPIRY, 
         }
     );
 };

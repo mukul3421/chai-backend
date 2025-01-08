@@ -16,19 +16,19 @@ const registerUser = asyncHandler ( async (req,res) => {
     // return response
     
     // get user details from frontend
-    const {username, email, fullname, password} = req.body;
+    const {username, email, fullName, password} = req.body;
     console.log("emaii: ",email);
     
     // validation - not empty
     if (
-        [username, email , fullname, pasword].some((Field) => 
+        [username, email , fullName, password].some((Field) => 
             Field?.trim() === "")
     ) {
         throw new ApiError(400, "All fields are required")
     }
     
     // check if user already exists: username, email
-    const existedUser = User.findOne(
+    const existedUser = await User.findOne(
         {$or: [{username},{email}]
     })
     
@@ -37,8 +37,8 @@ const registerUser = asyncHandler ( async (req,res) => {
     }
     
     // check for images , check for avatar 
-    const avatarLocalPath = res.files?.avatar[0]?.path;
-    const coverImageLocalPath = res.files?.coverImage[0]?.path;
+    const avatarLocalPath = req.files?.avatar?.[0]?.path;
+    const coverImageLocalPath = req.files?.coverImage?.[0]?.path;
     
     if(!avatarLocalPath){
         throw new ApiError(400,"Avatar files is required")
@@ -51,6 +51,7 @@ const registerUser = asyncHandler ( async (req,res) => {
     if(!avatar){
         throw new ApiError(400,"Avatar files is required")
     }
+    console.log(req.files);
     
     // create user object - create entry in db
     const user = await User.create({
